@@ -2,9 +2,30 @@
 
 ## Versioning
 
-Semantic versioning with **immutable tags**. Every release gets its own
-`v0.1.x`; a tag, once pushed, is never re-pointed. Consumers constrain on
-`^0.1`. New SemVer minors begin at 1.0.
+Pre-1.0, this package follows the laranail convention: **one tag per line, and
+it moves.** `v0.1.0` is re-pointed at `main` on every release, and consumers on
+`^0.1` resolve whatever it currently points at.
+
+That is not a preference, it is the invariant the whole family depends on.
+`^0.1` on a `0.x` package means `>=0.1.0 <0.2.0`, so a tag left behind does not
+ship consumers older *features* — it ships them code without the *fixes*, while
+the release page looks perfectly healthy. `laranail/enumerator` sat two commits
+behind its tag with nine packages depending on it, and the missing commits were
+a preset and an ordering bugfix.
+
+`scripts/verify-tag-currency.sh` enforces it, weekly and on demand: every tag
+must be an ancestor of `main`, and the highest tag on the line named by
+`extra.branch-alias` must be `main` itself.
+
+**The cost, stated plainly:** a moving tag means two machines resolving `^0.1`
+on different days can get different code, and a `composer.lock` recording
+`v0.1.0` says less than it appears to. That is the price of the convention
+while pre-1.0, and it is why `1.0` ends it — from then tags are immutable and
+every release is its own version.
+
+A package that outgrows the single moving tag cuts real SemVer versions instead;
+`laranail/db-tools` did that at `0.7`, and `extra.branch-alias` is what declares
+which line is live.
 
 ## The public surface
 
