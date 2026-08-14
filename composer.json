@@ -1,0 +1,128 @@
+{
+    "name": "laranail/ip-intel",
+    "description": "IP intelligence for Laravel \u2014 country, ASN and threat signals behind one resolver chain that answers offline first, with an opt-in metered REST API.",
+    "keywords": [
+        "laravel",
+        "laranail",
+        "geoip",
+        "ip",
+        "ip-intelligence",
+        "asn",
+        "cloudflare",
+        "fraud",
+        "rate-limiting"
+    ],
+    "homepage": "https://opensource.simtabi.com/products/laranail/ip-intel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Simtabi LLC",
+            "email": "opensource@simtabi.com",
+            "homepage": "https://opensource.simtabi.com",
+            "role": "Organization"
+        },
+        {
+            "name": "Imani Manyara",
+            "email": "imani@simtabi.com",
+            "role": "Maintainer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/laranail/ip-intel/issues",
+        "source": "https://github.com/laranail/ip-intel",
+        "docs": "https://opensource.simtabi.com/documentation/laranail/ip-intel/"
+    },
+    "require": {
+        "php": "^8.4.1 || ^8.5",
+        "illuminate/cache": "^13.0",
+        "illuminate/contracts": "^13.0",
+        "illuminate/http": "^13.0",
+        "illuminate/support": "^13.0",
+        "illuminate/validation": "^13.0",
+        "laranail/atlas": "^0.1",
+        "laranail/package-tools": "^0.1"
+    },
+    "require-dev": {
+        "larastan/larastan": "^3.0",
+        "laravel/pint": "^1.18",
+        "mockery/mockery": "^1.6",
+        "orchestra/testbench": "^11.0",
+        "pestphp/pest": "^4.0",
+        "pestphp/pest-plugin-laravel": "^4.0",
+        "php-parallel-lint/php-parallel-lint": "^1.4",
+        "phpstan/phpstan": "^2.0",
+        "phpunit/phpunit": "^12.0",
+        "rector/rector": "^2.0",
+        "roave/security-advisories": "dev-latest"
+    },
+    "autoload": {
+        "psr-4": {
+            "Simtabi\\Laranail\\IpIntel\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Simtabi\\Laranail\\IpIntel\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest --no-coverage --colors=always",
+        "lint": [
+            "@parallel-lint",
+            "@pint",
+            "@phpstan",
+            "@rector"
+        ],
+        "parallel-lint": "vendor/bin/parallel-lint --exclude vendor src tests",
+        "pint": "vendor/bin/pint --test",
+        "pint-fix": "vendor/bin/pint",
+        "phpstan": "vendor/bin/phpstan analyse --no-progress --memory-limit=512M",
+        "rector": "vendor/bin/rector process --dry-run --no-progress-bar",
+        "rector-fix": "vendor/bin/rector process"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Simtabi\\Laranail\\IpIntel\\Providers\\IpIntelServiceProvider"
+            ],
+            "aliases": {
+                "IpIntel": "Simtabi\\Laranail\\IpIntel\\Facades\\IpIntel"
+            }
+        },
+        "branch-alias": {
+            "dev-main": "0.1.x-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../atlas",
+            "options": {
+                "symlink": false,
+                "versions": {
+                    "laranail/atlas": "0.1.0"
+                }
+            }
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/laranail/console"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/laranail/enumerator"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/laranail/package-tools"
+        }
+    ]
+}
