@@ -37,19 +37,16 @@ still there and still meaningful:
    remote test double — the second because the first could be satisfied by a
    flag nobody sets.
 
-## Before tagging, check the path repository is gone
+## No path repositories
 
-While `laranail/atlas` was unpublished, this package resolved it through a
-**path** repository with a pinned `options.versions`. That must be a `vcs` entry
-before a tag:
+Every entry in `repositories` must be a `vcs` entry. A `path` repository in a
+tagged release installs nothing for anybody else — the directory does not exist
+on their machine — and the failure is a confusing "could not find a version of
+laranail/atlas" rather than anything naming the real cause.
 
-```json
-{ "type": "vcs", "url": "https://github.com/laranail/atlas" }
-```
-
-A tag carrying a path repository installs nothing for anybody else — the path
-does not exist on their machine — and the failure is a confusing "could not find
-a version of laranail/atlas" rather than anything naming the real cause.
+This package carried exactly that while `laranail/atlas` was unpublished, with a
+pinned `options.versions` to make local resolution work. It was removed once
+atlas was published, before the first tag.
 
 ## Cutting it
 

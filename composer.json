@@ -103,14 +103,8 @@
     "prefer-stable": true,
     "repositories": [
         {
-            "type": "path",
-            "url": "../atlas",
-            "options": {
-                "symlink": false,
-                "versions": {
-                    "laranail/atlas": "0.1.0"
-                }
-            }
+            "type": "vcs",
+            "url": "https://github.com/laranail/atlas"
         },
         {
             "type": "vcs",
