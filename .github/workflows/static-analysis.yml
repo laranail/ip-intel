@@ -1,0 +1,50 @@
+name: Static analysis
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: static-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static:
+    name: Pint · PHPStan · Rector
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
+        with:
+          php-version: '8.5'
+          extensions: dom, curl, libxml, mbstring, zip, fileinfo
+          coverage: none
+
+      - name: Install dependencies
+        env:
+          COMPOSER_AUTH: '{"github-oauth":{"github.com":"${{ secrets.GITHUB_TOKEN }}"}}'
+        run: composer update --prefer-stable --no-interaction --no-progress
+
+      - name: Lint (parse errors)
+        run: composer parallel-lint
+
+      - name: Pint (code style)
+        run: composer pint
+
+      - name: PHPStan
+        run: composer phpstan
+
+      # Pinned to the php84 set, not php85: this package supports 8.4, and the
+      # newer set rewrites into syntax that parses on one leg of the test matrix
+      # and fatals on the other.
+      - name: Rector (dry run)
+        run: composer rector
