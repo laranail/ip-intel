@@ -122,7 +122,7 @@ final class IpIntelServiceProvider extends PackageServiceProvider
                 . '/' . trim($config->string('api.version', 'v1'), '/'),
             'middleware' => $middleware,
         ], function (): void {
-            $this->loadRoutesFrom(dirname(__DIR__, 2) . '/routes/api.php');
+            $this->loadRoutesFrom($this->packagePath('routes/api.php'));
         });
     }
 }
