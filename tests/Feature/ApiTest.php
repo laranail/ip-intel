@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
+use Simtabi\Laranail\IpIntel\Services\IpIntelManager;
 use Simtabi\Laranail\IpIntel\Contracts\ResolvesCountry;
 use Simtabi\Laranail\IpIntel\Exceptions\SourceUnavailable;
 use Simtabi\Laranail\IpIntel\Providers\IpIntelServiceProvider;
-use Simtabi\Laranail\IpIntel\Services\IpIntelManager;
 
 function apiSource(?string $answer = 'KE'): ResolvesCountry
 {

@@ -3,16 +3,16 @@
 declare(strict_types=1);
 
 use Illuminate\Http\Request;
-use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
-use Simtabi\Laranail\IpIntel\Contracts\DetectsThreats;
-use Simtabi\Laranail\IpIntel\Contracts\ResolvesAsn;
-use Simtabi\Laranail\IpIntel\Contracts\ResolvesCountry;
 use Simtabi\Laranail\IpIntel\Data\AsnInfo;
-use Simtabi\Laranail\IpIntel\Data\ThreatSignals;
 use Simtabi\Laranail\IpIntel\Enums\Outcome;
-use Simtabi\Laranail\IpIntel\Exceptions\SourceUnavailable;
 use Simtabi\Laranail\IpIntel\Facades\IpIntel;
+use Simtabi\Laranail\IpIntel\Data\ThreatSignals;
+use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
+use Simtabi\Laranail\IpIntel\Contracts\ResolvesAsn;
 use Simtabi\Laranail\IpIntel\Services\IpIntelManager;
+use Simtabi\Laranail\IpIntel\Contracts\DetectsThreats;
+use Simtabi\Laranail\IpIntel\Contracts\ResolvesCountry;
+use Simtabi\Laranail\IpIntel\Exceptions\SourceUnavailable;
 
 /**
  * A country-only source that never leaves the machine.

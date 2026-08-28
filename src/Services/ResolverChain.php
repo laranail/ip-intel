@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\IpIntel\Services;
 
-use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
+use Simtabi\Laranail\IpIntel\Data\AsnInfo;
+use Simtabi\Laranail\IpIntel\Data\PlaceInfo;
+use Simtabi\Laranail\IpIntel\Data\IpIntelResult;
+use Simtabi\Laranail\IpIntel\Data\ThreatSignals;
 use Simtabi\Laranail\Atlas\Services\AtlasService;
-use Simtabi\Laranail\IpIntel\Contracts\DetectsThreats;
+use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
 use Simtabi\Laranail\IpIntel\Contracts\IntelDriver;
 use Simtabi\Laranail\IpIntel\Contracts\ResolvesAsn;
 use Simtabi\Laranail\IpIntel\Contracts\ResolvesCity;
+use Simtabi\Laranail\IpIntel\Contracts\DetectsThreats;
 use Simtabi\Laranail\IpIntel\Contracts\ResolvesCountry;
-use Simtabi\Laranail\IpIntel\Data\AsnInfo;
-use Simtabi\Laranail\IpIntel\Data\IpIntelResult;
-use Simtabi\Laranail\IpIntel\Data\PlaceInfo;
-use Simtabi\Laranail\IpIntel\Data\ThreatSignals;
 use Simtabi\Laranail\IpIntel\Exceptions\SourceUnavailable;
 
 /**

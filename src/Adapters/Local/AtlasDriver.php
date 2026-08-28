@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\IpIntel\Adapters\Local;
 
-use Simtabi\Laranail\Atlas\Core\Contracts\IpCountryResolver;
 use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
 use Simtabi\Laranail\IpIntel\Contracts\ResolvesCountry;
+use Simtabi\Laranail\Atlas\Core\Contracts\IpCountryResolver;
 
 /**
  * `laranail/atlas`' offline registry table.

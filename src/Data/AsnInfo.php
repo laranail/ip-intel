@@ -34,10 +34,10 @@ final readonly class AsnInfo
     public function toArray(): array
     {
         return [
-            'number' => $this->number,
+            'number'       => $this->number,
             'organisation' => $this->organisation,
-            'prefix' => $this->prefix,
-            'allocated' => $this->allocated,
+            'prefix'       => $this->prefix,
+            'allocated'    => $this->allocated,
         ];
     }
 }

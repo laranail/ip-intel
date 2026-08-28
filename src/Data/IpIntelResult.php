@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\IpIntel\Data;
 
 use JsonSerializable;
-use Simtabi\Laranail\Atlas\Core\Country\CountryRecord;
-use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
 use Simtabi\Laranail\IpIntel\Enums\Outcome;
+use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
+use Simtabi\Laranail\Atlas\Core\Country\CountryRecord;
 
 /**
  * What the chain found, and how.
@@ -161,19 +161,19 @@ final readonly class IpIntelResult implements JsonSerializable
     public function toArray(): array
     {
         return [
-            'ip' => $this->address->address,
-            'outcome' => $this->outcome->value,
+            'ip'           => $this->address->address,
+            'outcome'      => $this->outcome->value,
             'country_code' => $this->countryCode,
-            'country' => $this->country?->name,
-            'flag' => $this->country?->flag(),
-            'continent' => $this->country?->continent,
-            'currencies' => $this->country?->currencies,
-            'asn' => $this->asn?->toArray(),
-            'place' => $this->place?->toArray(),
-            'threats' => $this->threats?->toArray(),
-            'sources' => $this->sources,
+            'country'      => $this->country?->name,
+            'flag'         => $this->country?->flag(),
+            'continent'    => $this->country?->continent,
+            'currencies'   => $this->country?->currencies,
+            'asn'          => $this->asn?->toArray(),
+            'place'        => $this->place?->toArray(),
+            'threats'      => $this->threats?->toArray(),
+            'sources'      => $this->sources,
             'network_call' => $this->madeNetworkCall,
-            'message' => $this->message,
+            'message'      => $this->message,
         ];
     }
 

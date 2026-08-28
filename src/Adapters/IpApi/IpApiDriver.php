@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\IpIntel\Adapters\IpApi;
 
-use Illuminate\Http\Client\Factory as HttpFactory;
+use Throwable;
 use Psr\Log\LoggerInterface;
-use Simtabi\Laranail\Atlas\Core\Geo\Coordinates;
-use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
-use Simtabi\Laranail\IpIntel\Adapters\Local\AtlasDriver;
-use Simtabi\Laranail\IpIntel\Contracts\DetectsThreats;
-use Simtabi\Laranail\IpIntel\Contracts\ResolvesAsn;
-use Simtabi\Laranail\IpIntel\Contracts\ResolvesCity;
-use Simtabi\Laranail\IpIntel\Contracts\ResolvesCountry;
 use Simtabi\Laranail\IpIntel\Data\AsnInfo;
 use Simtabi\Laranail\IpIntel\Data\PlaceInfo;
+use Simtabi\Laranail\Atlas\Core\Geo\Coordinates;
 use Simtabi\Laranail\IpIntel\Data\ThreatSignals;
+use Illuminate\Http\Client\Factory as HttpFactory;
+use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
+use Simtabi\Laranail\IpIntel\Contracts\ResolvesAsn;
+use Simtabi\Laranail\IpIntel\Contracts\ResolvesCity;
+use Simtabi\Laranail\IpIntel\Contracts\DetectsThreats;
+use Simtabi\Laranail\IpIntel\Contracts\ResolvesCountry;
+use Simtabi\Laranail\IpIntel\Adapters\Local\AtlasDriver;
 use Simtabi\Laranail\IpIntel\Exceptions\SourceUnavailable;
-use Throwable;
 
 /**
  * ipapi.com — the paid tier, for the questions registry data cannot answer.
@@ -50,6 +50,22 @@ use Throwable;
  */
 final class IpApiDriver implements DetectsThreats, ResolvesAsn, ResolvesCity, ResolvesCountry
 {
+    /**
+     * One request per address, memoised for this instance.
+     *
+     * Four capability methods read one payload: without this, asking an address
+     * for its country, ASN, place and threats would be four billed calls.
+     *
+     * **Instance state, not static.** A static memo outlives the request under
+     * Octane and leaks between tests, and an IP's answer is not a process-wide
+     * constant. The container binds this driver per resolution, so the memo
+     * lasts exactly as long as one chain run — which is the window where the
+     * four capability calls happen.
+     *
+     * @var array<string, array<string, mixed>>
+     */
+    private array $memo = [];
+
     public function __construct(
         private readonly HttpFactory $http,
         private readonly LoggerInterface $logger,
@@ -156,22 +172,6 @@ final class IpApiDriver implements DetectsThreats, ResolvesAsn, ResolvesCity, Re
     }
 
     /**
-     * One request per address, memoised for this instance.
-     *
-     * Four capability methods read one payload: without this, asking an address
-     * for its country, ASN, place and threats would be four billed calls.
-     *
-     * **Instance state, not static.** A static memo outlives the request under
-     * Octane and leaks between tests, and an IP's answer is not a process-wide
-     * constant. The container binds this driver per resolution, so the memo
-     * lasts exactly as long as one chain run — which is the window where the
-     * four capability calls happen.
-     *
-     * @var array<string, array<string, mixed>>
-     */
-    private array $memo = [];
-
-    /**
      * @return array<string, mixed>
      */
     private function fetch(IpAddress $address): array
@@ -202,7 +202,7 @@ final class IpApiDriver implements DetectsThreats, ResolvesAsn, ResolvesCity, Re
             // Never the exception's own message: the client embeds the full
             // request URL, which carries the access key.
             $this->logger->warning('ip-intel: ipapi request failed', [
-                'ip' => $address->address,
+                'ip'     => $address->address,
                 'reason' => $e::class,
             ]);
 
@@ -211,7 +211,7 @@ final class IpApiDriver implements DetectsThreats, ResolvesAsn, ResolvesCity, Re
 
         if ($response->failed()) {
             $this->logger->warning('ip-intel: ipapi returned an error status', [
-                'ip' => $address->address,
+                'ip'     => $address->address,
                 'status' => $response->status(),
             ]);
 

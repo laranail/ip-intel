@@ -47,6 +47,7 @@ final readonly class IpIntelConfig
 
     /**
      * @param array<array-key, mixed> $default
+     *
      * @return array<array-key, mixed>
      */
     public function array(string $key, array $default = []): array
