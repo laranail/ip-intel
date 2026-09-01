@@ -57,13 +57,13 @@ final readonly class ThreatSignals
     public function toArray(): array
     {
         return [
-            'is_proxy'   => $this->isProxy,
-            'is_vpn'     => $this->isVpn,
-            'is_tor'     => $this->isTor,
+            'is_proxy' => $this->isProxy,
+            'is_vpn' => $this->isVpn,
+            'is_tor' => $this->isTor,
             'is_hosting' => $this->isHosting,
             'is_crawler' => $this->isCrawler,
             'risk_score' => $this->riskScore,
-            'source'     => $this->source,
+            'source' => $this->source,
         ];
     }
 }

@@ -30,7 +30,7 @@ final class LookupRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ip'   => ['required', 'string', new ValidIp],
+            'ip' => ['required', 'string', new ValidIp],
             'full' => ['sometimes', 'boolean'],
         ];
     }

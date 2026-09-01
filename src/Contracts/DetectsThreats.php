@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\IpIntel\Contracts;
 
-use Simtabi\Laranail\IpIntel\Data\ThreatSignals;
 use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
+use Simtabi\Laranail\IpIntel\Data\ThreatSignals;
 
 /**
  * A source that can say something about how an address is being used.
