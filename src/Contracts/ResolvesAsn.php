@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\IpIntel\Contracts;
 
-use Simtabi\Laranail\IpIntel\Data\AsnInfo;
 use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
+use Simtabi\Laranail\IpIntel\Data\AsnInfo;
 
 /**
  * A source that can name the network an address is announced from.

@@ -42,10 +42,10 @@ final readonly class PlaceInfo
     public function toArray(): array
     {
         return [
-            'city'               => $this->city,
-            'region'             => $this->region,
-            'postcode'           => $this->postcode,
-            'coordinates'        => $this->coordinates?->toArray(),
+            'city' => $this->city,
+            'region' => $this->region,
+            'postcode' => $this->postcode,
+            'coordinates' => $this->coordinates?->toArray(),
             'accuracy_radius_km' => $this->accuracyRadiusKm,
         ];
     }

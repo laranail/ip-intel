@@ -25,7 +25,7 @@ final readonly class AsnInfo
 
     public function label(): string
     {
-        return 'AS' . $this->number . ($this->organisation === null ? '' : ' ' . $this->organisation);
+        return 'AS'.$this->number.($this->organisation === null ? '' : ' '.$this->organisation);
     }
 
     /**
@@ -34,10 +34,10 @@ final readonly class AsnInfo
     public function toArray(): array
     {
         return [
-            'number'       => $this->number,
+            'number' => $this->number,
             'organisation' => $this->organisation,
-            'prefix'       => $this->prefix,
-            'allocated'    => $this->allocated,
+            'prefix' => $this->prefix,
+            'allocated' => $this->allocated,
         ];
     }
 }

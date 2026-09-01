@@ -32,7 +32,7 @@ use Simtabi\Laranail\IpIntel\Contracts\ResolvesCountry;
 final readonly class EdgeHeaderDriver implements ResolvesCountry
 {
     /**
-     * @param list<string> $headers in priority order
+     * @param  list<string>  $headers  in priority order
      */
     public function __construct(
         private ?Request $request,

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\IpIntel\Rules;
 
 use Closure;
-use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
 
 /**
  * A parseable IP address.

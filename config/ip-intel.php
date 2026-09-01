@@ -57,10 +57,10 @@ return [
     'sources' => [
 
         'ipapi' => [
-            'key'      => env('IP_INTEL_IPAPI_KEY'),
+            'key' => env('IP_INTEL_IPAPI_KEY'),
             'base_url' => env('IP_INTEL_IPAPI_URL', 'https://api.ipapi.com/api'),
-            'timeout'  => (int) env('IP_INTEL_IPAPI_TIMEOUT', 5),
-            'retries'  => (int) env('IP_INTEL_IPAPI_RETRIES', 2),
+            'timeout' => (int) env('IP_INTEL_IPAPI_TIMEOUT', 5),
+            'retries' => (int) env('IP_INTEL_IPAPI_RETRIES', 2),
         ],
 
     ],
@@ -78,9 +78,9 @@ return [
 
     'cache' => [
         'enabled' => env('IP_INTEL_CACHE', true),
-        'store'   => env('IP_INTEL_CACHE_STORE'),
-        'ttl'     => (int) env('IP_INTEL_CACHE_TTL', 1440),
-        'prefix'  => 'laranail.ip-intel',
+        'store' => env('IP_INTEL_CACHE_STORE'),
+        'ttl' => (int) env('IP_INTEL_CACHE_TTL', 1440),
+        'prefix' => 'laranail.ip-intel',
     ],
 
     /*
@@ -100,9 +100,9 @@ return [
     */
 
     'api' => [
-        'enabled'    => env('IP_INTEL_API', false),
-        'prefix'     => env('IP_INTEL_API_PREFIX', 'api/ip-intel'),
-        'version'    => 'v1',
+        'enabled' => env('IP_INTEL_API', false),
+        'prefix' => env('IP_INTEL_API_PREFIX', 'api/ip-intel'),
+        'version' => 'v1',
         'middleware' => ['api', 'throttle:60,1'],
     ],
 

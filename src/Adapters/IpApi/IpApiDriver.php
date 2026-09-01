@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\IpIntel\Adapters\IpApi;
 
-use Throwable;
-use Psr\Log\LoggerInterface;
-use Simtabi\Laranail\IpIntel\Data\AsnInfo;
-use Simtabi\Laranail\IpIntel\Data\PlaceInfo;
-use Simtabi\Laranail\Atlas\Core\Geo\Coordinates;
-use Simtabi\Laranail\IpIntel\Data\ThreatSignals;
 use Illuminate\Http\Client\Factory as HttpFactory;
+use Psr\Log\LoggerInterface;
+use Simtabi\Laranail\Atlas\Core\Geo\Coordinates;
 use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
+use Simtabi\Laranail\IpIntel\Adapters\Local\AtlasDriver;
+use Simtabi\Laranail\IpIntel\Contracts\DetectsThreats;
 use Simtabi\Laranail\IpIntel\Contracts\ResolvesAsn;
 use Simtabi\Laranail\IpIntel\Contracts\ResolvesCity;
-use Simtabi\Laranail\IpIntel\Contracts\DetectsThreats;
 use Simtabi\Laranail\IpIntel\Contracts\ResolvesCountry;
-use Simtabi\Laranail\IpIntel\Adapters\Local\AtlasDriver;
+use Simtabi\Laranail\IpIntel\Data\AsnInfo;
+use Simtabi\Laranail\IpIntel\Data\PlaceInfo;
+use Simtabi\Laranail\IpIntel\Data\ThreatSignals;
 use Simtabi\Laranail\IpIntel\Exceptions\SourceUnavailable;
+use Throwable;
 
 /**
  * ipapi.com — the paid tier, for the questions registry data cannot answer.
@@ -180,7 +180,7 @@ final class IpApiDriver implements DetectsThreats, ResolvesAsn, ResolvesCity, Re
             throw SourceUnavailable::notConfigured($this->name(), 'IP_INTEL_IPAPI_KEY');
         }
 
-        $key = $this->name() . ':' . $address->address;
+        $key = $this->name().':'.$address->address;
 
         if (isset($this->memo[$key])) {
             return $this->memo[$key];
@@ -197,12 +197,12 @@ final class IpApiDriver implements DetectsThreats, ResolvesAsn, ResolvesCity, Re
                 // a parameter the client encodes rather than a string this
                 // class concatenates into a path.
                 ->withUrlParameters(['ip' => $address->address])
-                ->get($this->baseUrl . '/{ip}', ['access_key' => $this->accessKey]);
+                ->get($this->baseUrl.'/{ip}', ['access_key' => $this->accessKey]);
         } catch (Throwable $e) {
             // Never the exception's own message: the client embeds the full
             // request URL, which carries the access key.
             $this->logger->warning('ip-intel: ipapi request failed', [
-                'ip'     => $address->address,
+                'ip' => $address->address,
                 'reason' => $e::class,
             ]);
 
@@ -211,7 +211,7 @@ final class IpApiDriver implements DetectsThreats, ResolvesAsn, ResolvesCity, Re
 
         if ($response->failed()) {
             $this->logger->warning('ip-intel: ipapi returned an error status', [
-                'ip'     => $address->address,
+                'ip' => $address->address,
                 'status' => $response->status(),
             ]);
 

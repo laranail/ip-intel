@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\IpIntel\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
-use Simtabi\Laranail\IpIntel\Enums\Outcome;
 use Simtabi\Laranail\IpIntel\Data\IpIntelResult;
-use Simtabi\Laranail\IpIntel\Services\IpIntelManager;
+use Simtabi\Laranail\IpIntel\Enums\Outcome;
 use Simtabi\Laranail\IpIntel\Http\Requests\LookupRequest;
 use Simtabi\Laranail\IpIntel\Http\Resources\IpIntelResource;
+use Simtabi\Laranail\IpIntel\Services\IpIntelManager;
 
 /**
  * Read-only lookups over HTTP.
@@ -61,8 +61,8 @@ final readonly class LookupController
     {
         return match ($result->outcome) {
             Outcome::Unavailable => 503,
-            Outcome::Disabled    => 501,
-            default              => 200,
+            Outcome::Disabled => 501,
+            default => 200,
         };
     }
 }
