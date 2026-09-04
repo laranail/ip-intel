@@ -46,7 +46,8 @@ final readonly class IpIntelConfig
     }
 
     /**
-     * @param  array<array-key, mixed>  $default
+     * @param array<array-key, mixed> $default
+     *
      * @return array<array-key, mixed>
      */
     public function array(string $key, array $default = []): array
@@ -71,6 +72,6 @@ final readonly class IpIntelConfig
 
     private function raw(string $key): mixed
     {
-        return $this->config->get(self::PREFIX.'.'.$key);
+        return $this->config->get(self::PREFIX . '.' . $key);
     }
 }
