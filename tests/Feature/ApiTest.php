@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
+use Simtabi\Laranail\IpIntel\Services\IpIntelManager;
 use Simtabi\Laranail\IpIntel\Contracts\ResolvesCountry;
 use Simtabi\Laranail\IpIntel\Exceptions\SourceUnavailable;
 use Simtabi\Laranail\IpIntel\Providers\IpIntelServiceProvider;
-use Simtabi\Laranail\IpIntel\Services\IpIntelManager;
 
 function apiSource(?string $answer = 'KE'): ResolvesCountry
 {
@@ -72,7 +72,7 @@ describe('with the api enabled', function (): void {
 
     it('rejects an address that is not one', function (string $ip): void {
         // A 422 naming the field, not a 500 from somewhere inside a driver.
-        $this->getJson('api/ip-intel/v1/lookup?ip='.urlencode($ip))
+        $this->getJson('api/ip-intel/v1/lookup?ip=' . urlencode($ip))
             ->assertStatus(422)
             ->assertJsonValidationErrorFor('ip');
     })->with(['not-an-ip', '01.02.03.04', '256.1.1.1', '']);

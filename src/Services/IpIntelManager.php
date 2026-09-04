@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\IpIntel\Services;
 
 use Closure;
-use Illuminate\Contracts\Cache\Repository as CacheRepository;
-use Illuminate\Contracts\Container\Container;
-use Illuminate\Http\Request;
 use LogicException;
-use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
+use Illuminate\Http\Request;
+use Simtabi\Laranail\IpIntel\Enums\Provider;
+use Illuminate\Contracts\Container\Container;
+use Simtabi\Laranail\IpIntel\Data\IpIntelResult;
 use Simtabi\Laranail\Atlas\Services\AtlasService;
-use Simtabi\Laranail\IpIntel\Adapters\EdgeHeader\EdgeHeaderDriver;
+use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
+use Simtabi\Laranail\IpIntel\Contracts\IntelDriver;
+use Simtabi\Laranail\IpIntel\Support\IpIntelConfig;
 use Simtabi\Laranail\IpIntel\Adapters\IpApi\IpApiDriver;
 use Simtabi\Laranail\IpIntel\Adapters\Local\AtlasDriver;
-use Simtabi\Laranail\IpIntel\Contracts\IntelDriver;
-use Simtabi\Laranail\IpIntel\Data\IpIntelResult;
-use Simtabi\Laranail\IpIntel\Enums\Provider;
-use Simtabi\Laranail\IpIntel\Support\IpIntelConfig;
+use Illuminate\Contracts\Cache\Repository as CacheRepository;
+use Simtabi\Laranail\IpIntel\Adapters\EdgeHeader\EdgeHeaderDriver;
 
 /**
  * The entry point: builds the chain, caches what is worth caching, and hands
@@ -44,7 +44,7 @@ final class IpIntelManager
     ) {}
 
     /**
-     * @param  Closure(Container): IntelDriver  $factory
+     * @param Closure(Container): IntelDriver $factory
      */
     public function extend(string $name, Closure $factory): self
     {
@@ -121,8 +121,8 @@ final class IpIntelManager
         }
 
         $key = $this->config->string('cache.prefix', 'laranail.ip-intel')
-            .':'.($full ? 'full' : 'country')
-            .':'.$parsed->address;
+            . ':' . ($full ? 'full' : 'country')
+            . ':' . $parsed->address;
 
         $cached = $this->cache->get($key);
 
@@ -164,7 +164,7 @@ final class IpIntelManager
         // bad input, and silently continuing with a wrong address would be
         // worse than saying so.
         return $parsed ?? throw new LogicException(
-            'atlas could not parse '.self::UNSPECIFIED.', which every IPv4 parser accepts.',
+            'atlas could not parse ' . self::UNSPECIFIED . ', which every IPv4 parser accepts.',
         );
     }
 
@@ -182,8 +182,8 @@ final class IpIntelManager
 
         return match ($provider) {
             Provider::EdgeHeader => $this->container->make(EdgeHeaderDriver::class),
-            Provider::Local => $this->container->make(AtlasDriver::class),
-            Provider::IpApi => $this->container->make(IpApiDriver::class),
+            Provider::Local      => $this->container->make(AtlasDriver::class),
+            Provider::IpApi      => $this->container->make(IpApiDriver::class),
         };
     }
 }
