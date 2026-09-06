@@ -7,10 +7,10 @@ namespace Simtabi\Laranail\IpIntel\Facades;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Facade;
-use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
 use Simtabi\Laranail\IpIntel\Data\IpIntelResult;
-use Simtabi\Laranail\IpIntel\Services\IpIntelManager;
+use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
 use Simtabi\Laranail\IpIntel\Services\ResolverChain;
+use Simtabi\Laranail\IpIntel\Services\IpIntelManager;
 
 /**
  * @method static IpIntelResult country(IpAddress|string $address)

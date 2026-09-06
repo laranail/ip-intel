@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\IpIntel\Data;
 
 use JsonSerializable;
-use Simtabi\Laranail\Atlas\Core\Country\CountryRecord;
-use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
 use Simtabi\Laranail\IpIntel\Enums\Outcome;
+use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
+use Simtabi\Laranail\Atlas\Core\Country\CountryRecord;
 
 /**
  * What the chain found, and how.
@@ -34,7 +34,7 @@ use Simtabi\Laranail\IpIntel\Enums\Outcome;
 final readonly class IpIntelResult implements JsonSerializable
 {
     /**
-     * @param  list<string>  $sources  drivers that contributed, in order
+     * @param list<string> $sources drivers that contributed, in order
      */
     private function __construct(
         public IpAddress $address,
@@ -50,7 +50,7 @@ final readonly class IpIntelResult implements JsonSerializable
     ) {}
 
     /**
-     * @param  list<string>  $sources
+     * @param list<string> $sources
      */
     public static function found(
         IpAddress $address,
@@ -94,7 +94,7 @@ final readonly class IpIntelResult implements JsonSerializable
     /**
      * Every source was asked and none had an answer.
      *
-     * @param  list<string>  $sources
+     * @param list<string> $sources
      */
     public static function notFound(IpAddress $address, array $sources = [], bool $madeNetworkCall = false): self
     {
@@ -114,7 +114,7 @@ final readonly class IpIntelResult implements JsonSerializable
      * problem, and treating it as "unknown visitor" is how a broken integration
      * runs for months.
      *
-     * @param  list<string>  $sources
+     * @param list<string> $sources
      */
     public static function unavailable(IpAddress $address, string $why, array $sources = []): self
     {
@@ -161,19 +161,19 @@ final readonly class IpIntelResult implements JsonSerializable
     public function toArray(): array
     {
         return [
-            'ip' => $this->address->address,
-            'outcome' => $this->outcome->value,
+            'ip'           => $this->address->address,
+            'outcome'      => $this->outcome->value,
             'country_code' => $this->countryCode,
-            'country' => $this->country?->name,
-            'flag' => $this->country?->flag(),
-            'continent' => $this->country?->continent,
-            'currencies' => $this->country?->currencies,
-            'asn' => $this->asn?->toArray(),
-            'place' => $this->place?->toArray(),
-            'threats' => $this->threats?->toArray(),
-            'sources' => $this->sources,
+            'country'      => $this->country?->name,
+            'flag'         => $this->country?->flag(),
+            'continent'    => $this->country?->continent,
+            'currencies'   => $this->country?->currencies,
+            'asn'          => $this->asn?->toArray(),
+            'place'        => $this->place?->toArray(),
+            'threats'      => $this->threats?->toArray(),
+            'sources'      => $this->sources,
             'network_call' => $this->madeNetworkCall,
-            'message' => $this->message,
+            'message'      => $this->message,
         ];
     }
 

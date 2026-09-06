@@ -40,7 +40,7 @@ final class SourceUnavailable extends RuntimeException
     {
         return new self(sprintf(
             'The [%s] source rejected the request: %s. This is usually a dead key or an exhausted quota — '
-            .'note that it answers 200 with success:false, so it is not an HTTP error.',
+            . 'note that it answers 200 with success:false, so it is not an HTTP error.',
             $driver,
             $why,
         ));

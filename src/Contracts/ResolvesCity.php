@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\IpIntel\Contracts;
 
-use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
 use Simtabi\Laranail\IpIntel\Data\PlaceInfo;
+use Simtabi\Laranail\Atlas\Core\Network\IpAddress;
 
 /**
  * A source that can place an address more precisely than its country.

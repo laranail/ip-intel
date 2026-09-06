@@ -39,7 +39,7 @@ enum Outcome: string
     {
         return match ($this) {
             self::Found, self::Reserved, self::NotFound => true,
-            self::Unavailable, self::Disabled => false,
+            self::Unavailable, self::Disabled           => false,
         };
     }
 }

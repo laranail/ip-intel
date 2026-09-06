@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\IpIntel\Providers;
 
-use Illuminate\Contracts\Cache\Factory as CacheFactory;
-use Illuminate\Contracts\Config\Repository as ConfigRepository;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Http\Client\Factory as HttpFactory;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use Override;
+use Illuminate\Http\Request;
 use Psr\Log\LoggerInterface;
-use Simtabi\Laranail\Atlas\Core\Contracts\IpCountryResolver;
+use Illuminate\Support\Facades\Route;
+use Simtabi\Laranail\Package\Tools\Package;
+use Illuminate\Contracts\Foundation\Application;
 use Simtabi\Laranail\Atlas\Services\AtlasService;
-use Simtabi\Laranail\IpIntel\Adapters\EdgeHeader\EdgeHeaderDriver;
+use Illuminate\Http\Client\Factory as HttpFactory;
+use Simtabi\Laranail\IpIntel\Support\IpIntelConfig;
+use Simtabi\Laranail\IpIntel\Services\IpIntelManager;
+use Illuminate\Contracts\Cache\Factory as CacheFactory;
 use Simtabi\Laranail\IpIntel\Adapters\IpApi\IpApiDriver;
 use Simtabi\Laranail\IpIntel\Adapters\Local\AtlasDriver;
-use Simtabi\Laranail\IpIntel\Services\IpIntelManager;
-use Simtabi\Laranail\IpIntel\Support\IpIntelConfig;
-use Simtabi\Laranail\Package\Tools\Package;
+use Simtabi\Laranail\Atlas\Core\Contracts\IpCountryResolver;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use Simtabi\Laranail\IpIntel\Adapters\EdgeHeader\EdgeHeaderDriver;
 use Simtabi\Laranail\Package\Tools\Providers\PackageServiceProvider;
 
 /**
@@ -119,7 +119,7 @@ final class IpIntelServiceProvider extends PackageServiceProvider
 
         Route::group([
             'prefix' => trim($config->string('api.prefix', 'api/ip-intel'), '/')
-                .'/'.trim($config->string('api.version', 'v1'), '/'),
+                . '/' . trim($config->string('api.version', 'v1'), '/'),
             'middleware' => $middleware,
         ], function (): void {
             $this->loadRoutesFrom($this->packagePath('routes/api.php'));
