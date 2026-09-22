@@ -4,7 +4,7 @@
 [![Static analysis](https://img.shields.io/github/actions/workflow/status/laranail/ip-intel/static-analysis.yml?branch=main&label=static%20analysis&style=flat-square)](https://github.com/laranail/ip-intel/actions/workflows/static-analysis.yml)
 [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 
-`laranail/ip-intel` is not published to Packagist, so there is no registry-version badge to show — see [Install](#install).
+`laranail/ip-intel` is not published to Packagist, so there is no registry-version badge to show: see [Install](#install).
 
 > IP intelligence for Laravel — country, ASN and threat signals behind one resolver chain that
 > answers offline first, with an opt-in REST API.
