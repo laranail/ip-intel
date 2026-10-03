@@ -22,7 +22,33 @@ composer require laranail/ip-intel
 Behind Cloudflare, Vercel, Fastly or CloudFront, a country lookup makes **no network call at all** —
 the edge already worked it out and put it in a request header.
 
-## Quick start
+## Quick start guide and usage
+
+### Getting started
+
+Nothing is required: the default chain is `['edge', 'local']`, both free and keyless. To widen it:
+
+1. **Offline tier.** Build `laranail/atlas`' registry table, then turn its IP lookup on:
+
+   ```bash
+   php vendor/laranail/atlas/tools/build-ip-table.php
+   ```
+
+   ```dotenv
+   ATLAS_IP_LOOKUP=true
+   ```
+
+2. **Metered tier** (city, ASN, threats). Publish the config, add `'ipapi'` to `chain`, and set the key:
+
+   ```bash
+   php artisan vendor:publish --tag="laranail::ip-intel-config"
+   ```
+
+   ```dotenv
+   IP_INTEL_IPAPI_KEY=…
+   ```
+
+### Usage
 
 ```php
 use Simtabi\Laranail\IpIntel\Facades\IpIntel;
@@ -30,6 +56,15 @@ use Simtabi\Laranail\IpIntel\Facades\IpIntel;
 IpIntel::forRequest();          // about the caller
 IpIntel::country('8.8.8.8');    // country only — the cheap path
 IpIntel::full('8.8.8.8');       // everything a configured source can supply
+```
+
+Every call returns an `IpIntelResult`, never `null`:
+
+```php
+$result = IpIntel::country('8.8.8.8');
+
+$result->countryCode;      // ?string
+$result->madeNetworkCall;  // false, when an edge header answered
 ```
 
 ## The chain is the point
