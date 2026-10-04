@@ -5,6 +5,8 @@ All notable changes to `laranail/ip-intel` are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
 ## [0.1.0] - 2026-08-14
 
 ### Added
@@ -53,3 +55,5 @@ The remote driver carried six defects, each now a line of the replacement:
 Threat signals are **nullable, not false**: `false` means a source looked and found nothing, `null`
 means nobody looked. A guard that treats an unanswered question as "not a proxy" stops working the
 day its provider key expires, silently.
+
+[Unreleased]: https://github.com/laranail/ip-intel/compare/v0.1.0...HEAD
