@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- `require` declares what `src/` uses directly: `illuminate/routing` (the `Route` facade in the
+  provider) and `laravel/framework`, for `Illuminate\Foundation\Http\FormRequest` in
+  `LookupRequest`, which has no split package. `laravel/framework` replaces every `illuminate/*` split, so an application installs nothing
+  new. `tests/Unit/DeclaredRequirementsTest.php` now fails when `src/` uses an Illuminate component,
+  facade or global helper that `require` does not name.
+
 ## [0.1.0] - 2026-08-14
 
 ### Added
